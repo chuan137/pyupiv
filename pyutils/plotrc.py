@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 from cycler import cycler
 
-def init_plotting(grid=False):
+def init(grid=False):
     plt.rcParams['figure.figsize'] = (7,4)
-    plt.rcParams['font.size'] = 14
+    plt.rcParams['font.size'] = 12
     plt.rcParams['font.family'] = 'sans-serif'
     plt.rcParams['axes.labelsize'] = 'large'
     plt.rcParams['axes.titlesize'] = 'x-large'

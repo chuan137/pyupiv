@@ -100,7 +100,7 @@ def loadtxt(fname, usecols=None):
 
 
 def stats(arr):
-    return arr.size, arr.sum(), arr.mean(), arr.std(), arr.min(), arr.max()
+    return arr.size, arr.mean(), arr.std(), arr.sum(), arr.min(), arr.max()
 
 def print_stats(arr):
-    print 'size: {}, sum: {}, mean: {}, std: {}, min: {}, max: {}'.format(stats(arr))
+    print 'size: {}, mean: {:.4f}, std: {:.4f}, sum: {:.4f}, min: {:.4f}, max: {:.4f}'.format(*stats(arr))

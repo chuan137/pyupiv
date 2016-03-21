@@ -28,6 +28,12 @@ def coordinates(x, y):
     return list(product(xrange(*x), xrange(*y)))
 
 
+def iterneighbours(x, y, r=1):
+    for _x in range(x-r, x+r+1):
+        for _y in range(y-r, y+r+1):
+            yield _x,_y
+
+
 def reverse_enum(L):
     for index in reversed(range(len(L))):
         yield index, L[index]
@@ -62,7 +68,7 @@ def read_rings(ring_file, cols=(0,1,2)):
     return [np.array(d)[:,cols] for d in data]
 
 
-def loadtxt(fname, usecols=None):
+def loadtxt(objfile, usecols=None):
     numeric_const_pattern = r"""
         [-+]? # optional sign
         (?:
@@ -75,9 +81,9 @@ def loadtxt(fname, usecols=None):
     """
     rx = re.compile(numeric_const_pattern, re.VERBOSE)
     data = []
-    with open(fname, 'r') as f:
 
-        for line in f:
+    def _load(fp, usecols):
+        for line in fp.readlines():
             if line.startswith('#'):
                 continue
 
@@ -96,6 +102,13 @@ def loadtxt(fname, usecols=None):
                     print '         ', scan
             else:
                 data.append(scan)
+
+    try:
+        _load(objfile, usecols)
+    except AttributeError:
+        with open(objfile, 'r') as fp:
+            _load(fp, usecols)
+
     return np.array(data)
 
 

@@ -21,8 +21,13 @@ def fit(function, parameters, y, x = None, yerr = None):
         return y - function(x)
 
     if x is None: x = arange(y.shape[0])
+    else: x = array(x)
     params = [p() for p in parameters]
-    optimize.leastsq(errf, params)
+    out = optimize.leastsq(errf, params, full_output=1)
+
+    # error
+    # credit
+    # http://stackoverflow.com/questions/14581358/getting-standard-errors-on-fitted-parameters-using-the-optimize-leastsq-method-i
 
 
 def main():

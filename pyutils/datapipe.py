@@ -3,11 +3,11 @@ from functools import wraps
 def extract_first_arg(arg):
     if not isinstance(arg, str):
         return None
-    if not (arg.startswith('@') or arg.startswith('&')):
+    if not (arg.startswith('@') or arg.startswith('$')):
         return None
 
     sink, source = [], []
-    for a in arg.split('&'):
+    for a in arg.split('$'):
         if a.startswith('@'):
             sink.append(a[1:].strip())
         elif a == '':
@@ -76,7 +76,7 @@ def test_decorator():
     p.get2('@test')
     assert p.data['test'] == 2
 
-    p.mulitply('@multiple &test', 5)
+    p.mulitply('@multiple $test', 5)
     assert p.data['multiple'] == 10
 
     assert p.get2() == 2

@@ -52,7 +52,7 @@ def smooth_array(lst):
     res[-1] = 0.75*lst[-1] + 0.25*lst[-2]
     return np.array(res)
 
-def read_rings(ring_file, cols=(0,1,2)):
+def read_rings(ring_file, usecols=(0,1,2)):
     '''
     :param cols: tuple of columns to return
     :returns: list of ring coordinates for each frame
@@ -62,10 +62,16 @@ def read_rings(ring_file, cols=(0,1,2)):
     with open(ring_file) as f:
         for line in f:
             if line.startswith('#'):
+                try:
+                    data[-1] = np.array(data[-1])[:,usecols]
+                except IndexError:
+                    pass
                 data.append([])
             else:
-                data[-1].append(map(float, line.split()))
-    return [np.array(d)[:,cols] for d in data]
+                d = map(float, line.split())
+                if len(d)>0: data[-1].append(d)
+
+    return [np.array(d) for d in data]
 
 
 def loadtxt(objfile, usecols=None):

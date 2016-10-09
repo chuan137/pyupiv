@@ -1,5 +1,5 @@
 
 modules:
 * fitting: Parameters, fitting
-* helper
-* plotting: plot style matplotlibrc 
+* helper: helper
+* datapipe: Data analysis in pipeline
